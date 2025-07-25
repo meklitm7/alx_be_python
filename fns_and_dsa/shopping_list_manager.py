@@ -10,16 +10,16 @@ def main():
     while True:
         display_menu()
          
-        choice = input("Enter your choice: ")
+        choice = int(input("Enter your choice: ")_
         
          
-        if choice == "1":
+        if choice == 1:
             # Prompt for and add an item
             user_input = input("enter your input: ")
             shopping_list.append(user_input)
             print( f"you add {user_input} in the shopping_list variable successfully")
             
-        elif choice == "2":
+        elif choice == 2:
             # Prompt for and remove an item
           
             user_input = input("enter your input that you want to delete: ").strip().lower()
@@ -29,11 +29,11 @@ def main():
             else:
                 print(f"{user_input} is not found in the list")
             
-        elif choice == "3":
+        elif choice == 3:
             # Display the shopping list
 
             print (shopping_list)
-        elif choice == "4":
+        elif choice == 4:
             print("Goodbye!")
             break
         else:
