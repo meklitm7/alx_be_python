@@ -1,38 +1,45 @@
-import sys
+ 
 from bank_account import BankAccount
 
 def main():
-    account = BankAccount(100)  # Example starting balance
-    if len(sys.argv) < 2:
-        print("Usage: python main-0.py <command>:<amount>")
-        print("Commands: deposit, withdraw, display")
-        sys.exit(1)
+    account = BankAccount(100)  # Starting balance
 
-    command, *params = sys.argv[1].split(':')
-    try:
-        amount = float(params[0]) if params else None
-    except ValueError:
-        print("Invalid amount. Please enter a numeric value.")
-        sys.exit(1)
+    while True:
+        print("\n--- Bank Menu ---")
+        print("1. Deposit")
+        print("2. Withdraw")
+        print("3. Display Balance")
+        print("4. Exit")
 
-    if command == "deposit" and amount is not None:
-        account.deposit(amount)
-        if amount.is_integer():
-            print(f"Deposited: ${int(amount)}")
+        try:
+            choice = int(input("Enter your choice (1-4): "))
+        except ValueError:
+            print("Invalid input. Please enter a number from 1 to 4.")
+            continue
+
+        if choice == 1:
+            try:
+                amount = float(input("Enter amount to deposit: "))
+                account.deposit(amount)
+                print(f"Deposited: ${amount}")
+            except ValueError:
+                print("Invalid amount. Please enter a numeric value.")
+        elif choice == 2:
+            try:
+                amount = float(input("Enter amount to withdraw: "))
+                if account.withdraw(amount):
+                    print(f"Withdrew: ${amount}")
+                else:
+                    print("Insufficient funds.")
+            except ValueError:
+                print("Invalid amount. Please enter a numeric value.")
+        elif choice == 3:
+            account.display_balance()
+        elif choice == 4:
+            print("Exiting the program.")
+            break
         else:
-            print(f"Deposited: ${amount}")
-    elif command == "withdraw" and amount is not None:
-        if account.withdraw(amount):
-            if amount.is_integer():
-                print(f"Withdrew: ${int(amount)}")
-            else:
-                print(f"Withdrew: ${amount}")
-        else:
-            print("Insufficient funds.")
-    elif command == "display":
-        account.display_balance()
-    else:
-        print("Invalid command.")
+            print("Invalid choice. Please enter a number from 1 to 4.")
 
 if __name__ == "__main__":
     main()
